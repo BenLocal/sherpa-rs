@@ -15,6 +15,7 @@ sherpa-onnx-whisper*
 sherpa-onnx-pyannote-*
 sherpa-onnx-zipformer-*
 sherpa-onnx-moonshine-*
+sherpa-onnx-paraformer-*
 *.txt
 !checksum.txt
 sherpa-onnx-v*
