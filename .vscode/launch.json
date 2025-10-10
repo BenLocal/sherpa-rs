@@ -138,9 +138,7 @@
       "cargo": {
         "args": ["run", "--example=paraformer_streaming", "--package=sherpa-rs"]
       },
-      "args": [
-        "sherpa-onnx-streaming-paraformer-bilingual-zh-en/test_wavs/0.wav"
-      ],
+      "args": ["output.wav"],
       "env": {
         "PATH": "sherpa-onnx/x64/sherpa-onnx-v1.12.14-linux-x64-shared/bin:${PATH}",
         "LD_LIBRARY_PATH": "sherpa-onnx/x64/sherpa-onnx-v1.12.14-linux-x64-shared/lib:${LD_LIBRARY_PATH}"

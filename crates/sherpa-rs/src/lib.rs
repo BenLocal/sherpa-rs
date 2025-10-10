@@ -22,6 +22,7 @@ pub mod tts;
 
 use std::ffi::CStr;
 
+use serde::{Deserialize, Serialize};
 #[cfg(feature = "sys")]
 pub use sherpa_rs_sys;
 
@@ -95,6 +96,9 @@ pub struct RecognizerResult {
     pub text: String,
     pub timestamps: Vec<f32>,
     pub tokens: Vec<String>,
+    /// Whether the result is final
+    /// Only valid for online recognition
+    pub is_final: bool,
 }
 
 impl RecognizerResult {
@@ -122,6 +126,7 @@ impl RecognizerResult {
             text,
             timestamps,
             tokens,
+            is_final: true, // Offline results are always final
         }
     }
 
@@ -135,6 +140,8 @@ impl RecognizerResult {
         };
         let mut tokens = Vec::with_capacity(count);
         let mut next_token = result.tokens;
+        let json_str = unsafe { cstr_to_string(result.json) };
+        let json: OnlineRecognizerJsonResult = serde_json::from_str(&json_str).unwrap_or_default();
 
         for _ in 0..count {
             let token = unsafe { CStr::from_ptr(next_token) };
@@ -148,6 +155,7 @@ impl RecognizerResult {
             text,
             timestamps,
             tokens,
+            is_final: json.is_final, // Default to false; can be updated based on context
         }
     }
 }
@@ -162,6 +170,28 @@ impl From<&sherpa_rs_sys::SherpaOnnxOnlineRecognizerResult> for RecognizerResult
     fn from(value: &sherpa_rs_sys::SherpaOnnxOnlineRecognizerResult) -> Self {
         Self::new_online(value)
     }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+pub struct Word {
+    pub word: String,
+    pub start: f32,
+    pub end: f32,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+pub struct OnlineRecognizerJsonResult {
+    pub text: String,
+    pub tokens: Vec<String>,
+    pub timestamps: Vec<f32>,
+    pub ys_probs: Vec<f32>,
+    pub lm_probs: Vec<f32>,
+    pub context_scores: Vec<f32>,
+    pub segment: i32,
+    pub words: Vec<Word>,
+    pub start_time: f32,
+    pub is_final: bool,
+    pub is_eof: bool,
 }
 
 impl Default for OnnxConfig {
