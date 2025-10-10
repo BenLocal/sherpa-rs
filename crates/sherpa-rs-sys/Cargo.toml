@@ -55,7 +55,7 @@ serde = { version = "1.0.216", features = ["derive"], optional = true }
 
 
 [features]
-default = ["download-binaries"]
+default = []
 download-binaries = [
     "dep:ureq",
     "dep:tar",

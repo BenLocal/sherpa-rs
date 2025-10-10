@@ -1,0 +1,11 @@
+[target.x86_64-unknown-linux-gnu]
+rustflags = ["-C", "relocation-model=dynamic-no-pic"]
+
+[target.aarch64-unknown-linux-gnu]
+rustflags = ["-C", "relocation-model=dynamic-no-pic"]
+
+[env]
+RUST_BACKTRACE = "1"
+CARGO_PROFILE_DEV_BUILD_OVERRIDE_DEBUG = "true"
+SHERPA_LIB_PATH = { value = "sherpa-onnx/x64/sherpa-onnx-v1.12.14-linux-x64-shared", relative = true }
+PATH = "${SHERPA_LIB_PATH}/bin:${PATH}"

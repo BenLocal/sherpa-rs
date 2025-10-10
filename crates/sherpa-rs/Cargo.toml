@@ -28,7 +28,7 @@ tracing = "0.1.40"
 clap = { version = "4.5.8", features = ["derive"] }
 
 [features]
-default = ["download-binaries", "tts"]
+default = ["tts"]
 download-binaries = ["sherpa-rs-sys/download-binaries"]
 static = ["sherpa-rs-sys/static"]
 sys = []
