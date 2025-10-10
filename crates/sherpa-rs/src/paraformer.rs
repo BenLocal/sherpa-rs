@@ -63,51 +63,20 @@ impl ParaformerOnlineRecognizer {
             encoder: encoder_model_path.as_ptr(),
             decoder: decoder_model_path.as_ptr(),
         };
-        let model_config = unsafe {
-            sherpa_rs_sys::SherpaOnnxOnlineModelConfig {
-                debug,
-                num_threads: config.num_threads.unwrap_or(1),
-                provider: provider_ptr.as_ptr(),
-                tokens: tokens_ptr.as_ptr(),
-                paraformer: paraformer_config,
-
-                // Null other model types
-                bpe_vocab: mem::zeroed::<_>(),
-                model_type: mem::zeroed::<_>(),
-                modeling_unit: mem::zeroed::<_>(),
-                nemo_ctc: mem::zeroed::<_>(),
-                transducer: mem::zeroed::<_>(),
-                zipformer2_ctc: mem::zeroed::<_>(),
-                tokens_buf: mem::zeroed::<_>(),
-                tokens_buf_size: mem::zeroed::<_>(),
-            }
-        };
+        let mut model_config = sherpa_rs_sys::SherpaOnnxOnlineModelConfig::default();
+        model_config.debug = debug;
+        model_config.num_threads = config.num_threads.unwrap_or(1);
+        model_config.provider = provider_ptr.as_ptr();
+        model_config.tokens = tokens_ptr.as_ptr();
+        model_config.paraformer = paraformer_config;
 
         // Recognizer config
-        let recognizer_config = unsafe {
-            sherpa_rs_sys::SherpaOnnxOnlineRecognizerConfig {
-                feat_config: sherpa_rs_sys::SherpaOnnxFeatureConfig {
-                    sample_rate: 16000,
-                    feature_dim: 80,
-                },
-                model_config,
-                decoding_method: null(),
-                hotwords_file: null(),
-                hotwords_score: 0.0,
-                max_active_paths: 0,
-                rule_fars: null(),
-                rule_fsts: null(),
-                blank_penalty: 0.0,
-                hr: mem::zeroed::<_>(),
-                enable_endpoint: 1,
-                rule1_min_trailing_silence: 2.4,
-                rule2_min_trailing_silence: 1.2,
-                rule3_min_utterance_length: 300.0,
-                ctc_fst_decoder_config: mem::zeroed::<_>(),
-                hotwords_buf: mem::zeroed::<_>(),
-                hotwords_buf_size: mem::zeroed::<_>(),
-            }
+        let mut recognizer_config = sherpa_rs_sys::SherpaOnnxOnlineRecognizerConfig::default();
+        recognizer_config.feat_config = sherpa_rs_sys::SherpaOnnxFeatureConfig {
+            sample_rate: 16000,
+            feature_dim: 80,
         };
+        recognizer_config.model_config = model_config;
 
         let recognizer =
             unsafe { sherpa_rs_sys::SherpaOnnxCreateOnlineRecognizer(&recognizer_config) };

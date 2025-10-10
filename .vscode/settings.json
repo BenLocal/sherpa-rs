@@ -1,4 +1,7 @@
 {
-    "editor.formatOnSave": true,
-    // "rust-analyzer.check.command": "clippy"
+  "editor.formatOnSave": true,
+  "files.associations": {
+    "cassert": "cpp"
+  }
+  // "rust-analyzer.check.command": "clippy"
 }

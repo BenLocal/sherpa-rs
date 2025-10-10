@@ -134,3 +134,7 @@ path = "../../examples/dolphin.rs"
 [[example]]
 name = "parakeet"
 path = "../../examples/parakeet.rs"
+
+[[example]]
+name = "paraformer_streaming"
+path = "../../examples/paraformer_streaming.rs"

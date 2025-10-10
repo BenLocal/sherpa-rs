@@ -16,6 +16,7 @@ sherpa-onnx-pyannote-*
 sherpa-onnx-zipformer-*
 sherpa-onnx-moonshine-*
 sherpa-onnx-paraformer-*
+sherpa-onnx-streaming-*
 *.txt
 !checksum.txt
 sherpa-onnx-v*

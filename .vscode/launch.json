@@ -1,0 +1,459 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug unit tests in library 'sherpa_rs'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'audio_tag'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=audio_tag", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'audio_tag'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=audio_tag", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'diarize'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=diarize", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'diarize'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=diarize", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'dolphin'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=dolphin", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'dolphin'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=dolphin", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'keyword_spot'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=keyword_spot", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'keyword_spot'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=keyword_spot", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'language_id'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=language_id", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'language_id'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=language_id", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'moonshine'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=moonshine", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'moonshine'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=moonshine", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'paraformer'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=paraformer", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'paraformer'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=paraformer", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'paraformer_streaming'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=paraformer_streaming", "--package=sherpa-rs"]
+      },
+      "args": [
+        "sherpa-onnx-streaming-paraformer-bilingual-zh-en/test_wavs/0.wav"
+      ],
+      "env": {
+        "PATH": "sherpa-onnx/x64/sherpa-onnx-v1.12.14-linux-x64-shared/bin:${PATH}",
+        "LD_LIBRARY_PATH": "sherpa-onnx/x64/sherpa-onnx-v1.12.14-linux-x64-shared/lib:${LD_LIBRARY_PATH}"
+      }
+    },
+    {
+      "name": "Debug unit tests in example 'paraformer_streaming'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": [
+          "test",
+          "--example=paraformer_streaming",
+          "--package=sherpa-rs"
+        ]
+      }
+    },
+    {
+      "name": "Debug example 'parakeet'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=parakeet", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'parakeet'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=parakeet", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'punctuate'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=punctuate", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'punctuate'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=punctuate", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'sense_voice'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=sense_voice", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'sense_voice'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=sense_voice", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'speaker_embedding'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=speaker_embedding", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'speaker_embedding'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=speaker_embedding", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'speaker_id'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=speaker_id", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'speaker_id'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=speaker_id", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'transducer'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=transducer", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'transducer'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=transducer", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'transducer_vosk'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=transducer_vosk", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'transducer_vosk'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=transducer_vosk", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'tts_kitten'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=tts_kitten", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'tts_kitten'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=tts_kitten", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'tts_kokoro'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=tts_kokoro", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'tts_kokoro'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=tts_kokoro", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'tts_matcha'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=tts_matcha", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'tts_matcha'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=tts_matcha", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'tts_vits'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=tts_vits", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'tts_vits'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=tts_vits", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'vad_segment'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=vad_segment", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'vad_segment'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=vad_segment", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'vad_silero'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=vad_silero", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'vad_silero'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=vad_silero", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'vad_ten'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=vad_ten", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'vad_ten'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=vad_ten", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'vad_whisper'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=vad_whisper", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'vad_whisper'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=vad_whisper", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'whisper'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=whisper", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'whisper'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=whisper", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug example 'zipformer'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["run", "--example=zipformer", "--package=sherpa-rs"]
+      },
+      "args": []
+    },
+    {
+      "name": "Debug unit tests in example 'zipformer'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--example=zipformer", "--package=sherpa-rs"]
+      }
+    },
+    {
+      "name": "Debug unit tests in library 'sherpa_rs_sys'",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--package=sherpa-rs-sys"]
+      }
+    }
+  ]
+}
