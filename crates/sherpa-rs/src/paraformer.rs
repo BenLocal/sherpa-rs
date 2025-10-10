@@ -1,6 +1,5 @@
 use crate::{get_default_provider, utils::cstring_from_str};
 use eyre::{bail, Result};
-use sherpa_rs_sys::SherpaOnnxOnlineCtcFstDecoderConfig;
 use std::{mem, ptr::null};
 
 #[derive(Debug)]
@@ -87,12 +86,8 @@ impl ParaformerOnlineRecognizer {
         recognizer_config.rule2_min_trailing_silence = 1.2;
         recognizer_config.rule3_min_utterance_length = 300.0;
         // let decoding_method = cstring_from_str("greedy_search");
+        // let decoding_method = std::ffi::CString::new("")?;
         // recognizer_config.decoding_method = decoding_method.as_ptr();
-        // let graph_str = cstring_from_str("");
-        // recognizer_config.ctc_fst_decoder_config = SherpaOnnxOnlineCtcFstDecoderConfig {
-        //     graph: graph_str.as_ptr(),
-        //     max_active: 3000,
-        // };
 
         let recognizer =
             unsafe { sherpa_rs_sys::SherpaOnnxCreateOnlineRecognizer(&recognizer_config) };
@@ -215,6 +210,7 @@ impl ParaformerOfflineRecognizer {
                 dolphin: mem::zeroed::<_>(),
                 zipformer_ctc: mem::zeroed::<_>(),
                 canary: mem::zeroed::<_>(),
+                wenet_ctc: mem::zeroed::<_>(),
             }
         };
 

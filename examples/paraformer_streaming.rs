@@ -1,7 +1,7 @@
 /*
 Transcribe wav file using SenseVoice
 
-wget wget https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-streaming-paraformer-bilingual-zh-en.tar.bz2
+wget https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-streaming-paraformer-bilingual-zh-en.tar.bz2
 tar xvf sherpa-onnx-streaming-paraformer-bilingual-zh-en.tar.bz2
 cargo run --example paraformer_streaming motivation.wav
 */
