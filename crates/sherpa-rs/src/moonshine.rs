@@ -7,7 +7,7 @@ pub struct MoonshineRecognizer {
     recognizer: *const sherpa_rs_sys::SherpaOnnxOfflineRecognizer,
 }
 
-pub type MoonshineRecognizerResult = super::OfflineRecognizerResult;
+pub type MoonshineRecognizerResult = super::RecognizerResult;
 
 #[derive(Debug, Clone)]
 pub struct MoonshineConfig {

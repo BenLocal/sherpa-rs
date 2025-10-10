@@ -3,11 +3,169 @@ use eyre::{bail, Result};
 use std::{mem, ptr::null};
 
 #[derive(Debug)]
-pub struct ParaformerRecognizer {
+pub enum ParaformerRecognizer {
+    Offline(ParaformerOfflineRecognizer),
+    Online(ParaformerOnlineRecognizer),
+}
+
+impl ParaformerRecognizer {
+    pub fn new(config: ParaformerConfig) -> Result<Self> {
+        let recognizer = ParaformerOfflineRecognizer::new(config)?;
+        Ok(Self::Offline(recognizer))
+    }
+
+    pub fn new_online(
+        config: ParaformerConfig,
+        encoder_model_path: String,
+        decoder_model_path: String,
+    ) -> Result<Self> {
+        let recognizer =
+            ParaformerOnlineRecognizer::new(config, encoder_model_path, decoder_model_path)?;
+        Ok(Self::Online(recognizer))
+    }
+
+    pub fn transcribe(&mut self, sample_rate: u32, samples: &[f32]) -> ParaformerRecognizerResult {
+        match self {
+            Self::Offline(r) => r.transcribe(sample_rate, samples),
+            Self::Online(r) => r.transcribe(sample_rate, samples),
+        }
+    }
+}
+
+#[derive(Debug)]
+pub struct ParaformerOnlineRecognizer {
+    recognizer: *const sherpa_rs_sys::SherpaOnnxOnlineRecognizer,
+    stream: *const sherpa_rs_sys::SherpaOnnxOnlineStream,
+}
+
+impl ParaformerOnlineRecognizer {
+    pub fn new(
+        config: ParaformerConfig,
+        encoder_model_path: String,
+        decoder_model_path: String,
+    ) -> Result<Self> {
+        let debug = config.debug.into();
+        let provider = config.provider.unwrap_or(get_default_provider());
+        let provider_ptr = cstring_from_str(&provider);
+        let tokens_ptr = cstring_from_str(&config.tokens);
+
+        let encoder_model_path = if encoder_model_path.is_empty() {
+            bail!("Encoder model path is required for online Paraformer")
+        } else {
+            cstring_from_str(&encoder_model_path)
+        };
+        let decoder_model_path = if decoder_model_path.is_empty() {
+            bail!("Decoder model path is required for online Paraformer")
+        } else {
+            cstring_from_str(&decoder_model_path)
+        };
+        let paraformer_config = sherpa_rs_sys::SherpaOnnxOnlineParaformerModelConfig {
+            encoder: encoder_model_path.as_ptr(),
+            decoder: decoder_model_path.as_ptr(),
+        };
+        let model_config = unsafe {
+            sherpa_rs_sys::SherpaOnnxOnlineModelConfig {
+                debug,
+                num_threads: config.num_threads.unwrap_or(1),
+                provider: provider_ptr.as_ptr(),
+                tokens: tokens_ptr.as_ptr(),
+                paraformer: paraformer_config,
+
+                // Null other model types
+                bpe_vocab: mem::zeroed::<_>(),
+                model_type: mem::zeroed::<_>(),
+                modeling_unit: mem::zeroed::<_>(),
+                nemo_ctc: mem::zeroed::<_>(),
+                transducer: mem::zeroed::<_>(),
+                zipformer2_ctc: mem::zeroed::<_>(),
+                tokens_buf: mem::zeroed::<_>(),
+                tokens_buf_size: mem::zeroed::<_>(),
+            }
+        };
+
+        // Recognizer config
+        let recognizer_config = unsafe {
+            sherpa_rs_sys::SherpaOnnxOnlineRecognizerConfig {
+                feat_config: sherpa_rs_sys::SherpaOnnxFeatureConfig {
+                    sample_rate: 16000,
+                    feature_dim: 80,
+                },
+                model_config,
+                decoding_method: null(),
+                hotwords_file: null(),
+                hotwords_score: 0.0,
+                max_active_paths: 0,
+                rule_fars: null(),
+                rule_fsts: null(),
+                blank_penalty: 0.0,
+                hr: mem::zeroed::<_>(),
+                enable_endpoint: 1,
+                rule1_min_trailing_silence: 2.4,
+                rule2_min_trailing_silence: 1.2,
+                rule3_min_utterance_length: 300.0,
+                ctc_fst_decoder_config: mem::zeroed::<_>(),
+                hotwords_buf: mem::zeroed::<_>(),
+                hotwords_buf_size: mem::zeroed::<_>(),
+            }
+        };
+
+        let recognizer =
+            unsafe { sherpa_rs_sys::SherpaOnnxCreateOnlineRecognizer(&recognizer_config) };
+        if recognizer.is_null() {
+            bail!("Failed to create online Paraformer recognizer");
+        }
+        let stream = unsafe { sherpa_rs_sys::SherpaOnnxCreateOnlineStream(recognizer) };
+
+        Ok(Self { recognizer, stream })
+    }
+
+    pub fn transcribe(&mut self, sample_rate: u32, samples: &[f32]) -> ParaformerRecognizerResult {
+        unsafe {
+            sherpa_rs_sys::SherpaOnnxOnlineStreamAcceptWaveform(
+                self.stream,
+                sample_rate as i32,
+                samples.as_ptr(),
+                samples.len() as i32,
+            );
+
+            while sherpa_rs_sys::SherpaOnnxIsOnlineStreamReady(self.recognizer, self.stream) == 1 {
+                sherpa_rs_sys::SherpaOnnxDecodeOnlineStream(self.recognizer, self.stream);
+            }
+
+            let result_ptr =
+                sherpa_rs_sys::SherpaOnnxGetOnlineStreamResult(self.recognizer, self.stream);
+            let raw_result = result_ptr.read();
+            let result = ParaformerRecognizerResult::from(&raw_result);
+
+            sherpa_rs_sys::SherpaOnnxDestroyOnlineRecognizerResult(result_ptr);
+
+            if sherpa_rs_sys::SherpaOnnxOnlineStreamIsEndpoint(self.recognizer, self.stream) == 1 {
+                sherpa_rs_sys::SherpaOnnxOnlineStreamReset(self.recognizer, self.stream);
+            }
+
+            result
+        }
+    }
+}
+
+unsafe impl Send for ParaformerOnlineRecognizer {}
+unsafe impl Sync for ParaformerOnlineRecognizer {}
+
+impl Drop for ParaformerOnlineRecognizer {
+    fn drop(&mut self) {
+        unsafe {
+            sherpa_rs_sys::SherpaOnnxDestroyOnlineStream(self.stream);
+            sherpa_rs_sys::SherpaOnnxDestroyOnlineRecognizer(self.recognizer);
+        }
+    }
+}
+
+#[derive(Debug)]
+pub struct ParaformerOfflineRecognizer {
     recognizer: *const sherpa_rs_sys::SherpaOnnxOfflineRecognizer,
 }
 
-pub type ParaformerRecognizerResult = super::OfflineRecognizerResult;
+pub type ParaformerRecognizerResult = super::RecognizerResult;
 
 #[derive(Debug, Clone)]
 pub struct ParaformerConfig {
@@ -30,7 +188,7 @@ impl Default for ParaformerConfig {
     }
 }
 
-impl ParaformerRecognizer {
+impl ParaformerOfflineRecognizer {
     pub fn new(config: ParaformerConfig) -> Result<Self> {
         let debug = config.debug.into();
         let provider = config.provider.unwrap_or(get_default_provider());
@@ -126,10 +284,10 @@ impl ParaformerRecognizer {
     }
 }
 
-unsafe impl Send for ParaformerRecognizer {}
-unsafe impl Sync for ParaformerRecognizer {}
+unsafe impl Send for ParaformerOfflineRecognizer {}
+unsafe impl Sync for ParaformerOfflineRecognizer {}
 
-impl Drop for ParaformerRecognizer {
+impl Drop for ParaformerOfflineRecognizer {
     fn drop(&mut self) {
         unsafe {
             sherpa_rs_sys::SherpaOnnxDestroyOfflineRecognizer(self.recognizer);

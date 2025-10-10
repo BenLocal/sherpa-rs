@@ -7,7 +7,7 @@ pub struct WhisperRecognizer {
     recognizer: *const sherpa_rs_sys::SherpaOnnxOfflineRecognizer,
 }
 
-pub type WhisperRecognizerResult = super::OfflineRecognizerResult;
+pub type WhisperRecognizerResult = super::RecognizerResult;
 
 #[derive(Debug, Clone)]
 pub struct WhisperConfig {

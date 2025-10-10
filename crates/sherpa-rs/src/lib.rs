@@ -90,14 +90,14 @@ pub struct OnnxConfig {
 }
 
 #[derive(Debug, Clone)]
-pub struct OfflineRecognizerResult {
+pub struct RecognizerResult {
     pub lang: String,
     pub text: String,
     pub timestamps: Vec<f32>,
     pub tokens: Vec<String>,
 }
 
-impl OfflineRecognizerResult {
+impl RecognizerResult {
     fn new(result: &sherpa_rs_sys::SherpaOnnxOfflineRecognizerResult) -> Self {
         let lang = unsafe { cstr_to_string(result.lang) };
         let text = unsafe { cstr_to_string(result.text) };
@@ -123,6 +123,44 @@ impl OfflineRecognizerResult {
             timestamps,
             tokens,
         }
+    }
+
+    fn new_online(result: &sherpa_rs_sys::SherpaOnnxOnlineRecognizerResult) -> Self {
+        let text = unsafe { cstr_to_string(result.text) };
+        let count = result.count.try_into().unwrap();
+        let timestamps = if result.timestamps.is_null() {
+            Vec::new()
+        } else {
+            unsafe { std::slice::from_raw_parts(result.timestamps, count).to_vec() }
+        };
+        let mut tokens = Vec::with_capacity(count);
+        let mut next_token = result.tokens;
+
+        for _ in 0..count {
+            let token = unsafe { CStr::from_ptr(next_token) };
+            tokens.push(token.to_string_lossy().into_owned());
+            next_token = next_token
+                .wrapping_byte_offset(token.to_bytes_with_nul().len().try_into().unwrap());
+        }
+
+        Self {
+            lang: String::new(), // No language information in online results
+            text,
+            timestamps,
+            tokens,
+        }
+    }
+}
+
+impl From<&sherpa_rs_sys::SherpaOnnxOfflineRecognizerResult> for RecognizerResult {
+    fn from(value: &sherpa_rs_sys::SherpaOnnxOfflineRecognizerResult) -> Self {
+        Self::new(value)
+    }
+}
+
+impl From<&sherpa_rs_sys::SherpaOnnxOnlineRecognizerResult> for RecognizerResult {
+    fn from(value: &sherpa_rs_sys::SherpaOnnxOnlineRecognizerResult) -> Self {
+        Self::new_online(value)
     }
 }
 

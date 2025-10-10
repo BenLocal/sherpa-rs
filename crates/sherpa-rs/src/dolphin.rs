@@ -7,7 +7,7 @@ pub struct DolphinRecognizer {
     recognizer: *const sherpa_rs_sys::SherpaOnnxOfflineRecognizer,
 }
 
-pub type DolphinRecognizerResult = super::OfflineRecognizerResult;
+pub type DolphinRecognizerResult = super::RecognizerResult;
 
 #[derive(Debug, Clone)]
 pub struct DolphinConfig {

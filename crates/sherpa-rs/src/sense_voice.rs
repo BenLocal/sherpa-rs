@@ -7,7 +7,7 @@ pub struct SenseVoiceRecognizer {
     recognizer: *const sherpa_rs_sys::SherpaOnnxOfflineRecognizer,
 }
 
-pub type SenseVoiceRecognizerResult = super::OfflineRecognizerResult;
+pub type SenseVoiceRecognizerResult = super::RecognizerResult;
 
 #[derive(Debug, Clone)]
 pub struct SenseVoiceConfig {
