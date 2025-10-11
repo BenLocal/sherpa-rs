@@ -99,6 +99,10 @@ pub struct RecognizerResult {
     /// Whether the result is final
     /// Only valid for online recognition
     pub is_final: bool,
+    /// segment id
+    pub segment: i32,
+    /// start_time of the segment in seconds
+    pub start_time: f32,
 }
 
 impl RecognizerResult {
@@ -114,6 +118,9 @@ impl RecognizerResult {
         let mut tokens = Vec::with_capacity(count);
         let mut next_token = result.tokens;
 
+        let json_str = unsafe { cstr_to_string(result.json) };
+        let json: OnlineRecognizerJsonResult = serde_json::from_str(&json_str).unwrap_or_default();
+
         for _ in 0..count {
             let token = unsafe { CStr::from_ptr(next_token) };
             tokens.push(token.to_string_lossy().into_owned());
@@ -126,7 +133,9 @@ impl RecognizerResult {
             text,
             timestamps,
             tokens,
-            is_final: true, // Offline results are always final
+            is_final: json.is_final,
+            segment: json.segment,
+            start_time: json.start_time,
         }
     }
 
@@ -151,11 +160,13 @@ impl RecognizerResult {
         }
 
         Self {
-            lang: String::new(), // No language information in online results
+            lang: String::new(),
             text,
             timestamps,
             tokens,
-            is_final: json.is_final, // Default to false; can be updated based on context
+            is_final: json.is_final,
+            segment: json.segment,
+            start_time: json.start_time,
         }
     }
 }

@@ -32,7 +32,10 @@ fn main() {
     for chunk in samples.chunks(1600) {
         let result = recognizer.transcribe(sample_rate, chunk);
         if !result.text.is_empty() {
-            println!("✅ Text: {} | Final: {}", result.text, result.is_final);
+            println!(
+                "✅ Text: {} | StartTime: {}",
+                result.text, result.start_time,
+            );
         }
     }
 }
