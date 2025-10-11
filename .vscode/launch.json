@@ -9,10 +9,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--package=sherpa-rs"]
       }
     },
     {
@@ -20,11 +17,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=audio_tag",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=audio_tag", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -33,11 +26,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=audio_tag",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=audio_tag", "--package=sherpa-rs"]
       }
     },
     {
@@ -45,11 +34,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=diarize",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=diarize", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -58,11 +43,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=diarize",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=diarize", "--package=sherpa-rs"]
       }
     },
     {
@@ -70,11 +51,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=dolphin",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=dolphin", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -83,11 +60,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=dolphin",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=dolphin", "--package=sherpa-rs"]
       }
     },
     {
@@ -95,11 +68,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=keyword_spot",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=keyword_spot", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -108,11 +77,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=keyword_spot",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=keyword_spot", "--package=sherpa-rs"]
       }
     },
     {
@@ -120,11 +85,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=language_id",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=language_id", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -133,11 +94,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=language_id",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=language_id", "--package=sherpa-rs"]
       }
     },
     {
@@ -145,11 +102,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=moonshine",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=moonshine", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -158,11 +111,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=moonshine",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=moonshine", "--package=sherpa-rs"]
       }
     },
     {
@@ -170,11 +119,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=paraformer",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=paraformer", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -183,11 +128,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=paraformer",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=paraformer", "--package=sherpa-rs"]
       }
     },
     {
@@ -195,19 +136,13 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=paraformer_streaming",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=paraformer_streaming", "--package=sherpa-rs"]
       },
-      "args": [
-        "sherpa-onnx-streaming-paraformer-bilingual-zh-en/test_wavs/2.wav"
-      ],
+      "args": ["output.wav"],
       "env": {
-        //"PATH": "sherpa-onnx/x64/sherpa-onnx-v1.12.14-linux-x64-shared/bin:${PATH}",
-        //"LD_LIBRARY_PATH": "sherpa-onnx/x64/sherpa-onnx-v1.12.14-linux-x64-shared/lib:${LD_LIBRARY_PATH}"
-        "DYLD_LIBRARY_PATH": "sherpa-onnx/macos-aarch64/sherpa-onnx-v1.12.14-osx-universal2-shared/lib:$DYLD_LIBRARY_PATH"
+        "PATH": "sherpa-onnx/x64/sherpa-onnx-v1.12.14-linux-x64-shared/bin:${PATH}",
+        "LD_LIBRARY_PATH": "sherpa-onnx/x64/sherpa-onnx-v1.12.14-linux-x64-shared/lib:${LD_LIBRARY_PATH}"
+        //"DYLD_LIBRARY_PATH": "sherpa-onnx/macos-aarch64/sherpa-onnx-v1.12.14-osx-universal2-shared/lib:$DYLD_LIBRARY_PATH"
       }
     },
     {
@@ -227,11 +162,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=parakeet",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=parakeet", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -240,11 +171,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=parakeet",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=parakeet", "--package=sherpa-rs"]
       }
     },
     {
@@ -252,11 +179,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=punctuate",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=punctuate", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -265,11 +188,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=punctuate",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=punctuate", "--package=sherpa-rs"]
       }
     },
     {
@@ -277,11 +196,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=sense_voice",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=sense_voice", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -290,11 +205,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=sense_voice",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=sense_voice", "--package=sherpa-rs"]
       }
     },
     {
@@ -302,11 +213,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=speaker_embedding",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=speaker_embedding", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -315,11 +222,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=speaker_embedding",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=speaker_embedding", "--package=sherpa-rs"]
       }
     },
     {
@@ -327,11 +230,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=speaker_id",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=speaker_id", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -340,11 +239,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=speaker_id",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=speaker_id", "--package=sherpa-rs"]
       }
     },
     {
@@ -352,11 +247,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=transducer",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=transducer", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -365,11 +256,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=transducer",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=transducer", "--package=sherpa-rs"]
       }
     },
     {
@@ -377,11 +264,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=transducer_vosk",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=transducer_vosk", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -390,11 +273,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=transducer_vosk",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=transducer_vosk", "--package=sherpa-rs"]
       }
     },
     {
@@ -402,11 +281,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=tts_kitten",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=tts_kitten", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -415,11 +290,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=tts_kitten",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=tts_kitten", "--package=sherpa-rs"]
       }
     },
     {
@@ -427,11 +298,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=tts_kokoro",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=tts_kokoro", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -440,11 +307,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=tts_kokoro",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=tts_kokoro", "--package=sherpa-rs"]
       }
     },
     {
@@ -452,11 +315,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=tts_matcha",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=tts_matcha", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -465,11 +324,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=tts_matcha",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=tts_matcha", "--package=sherpa-rs"]
       }
     },
     {
@@ -477,11 +332,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=tts_vits",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=tts_vits", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -490,11 +341,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=tts_vits",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=tts_vits", "--package=sherpa-rs"]
       }
     },
     {
@@ -502,11 +349,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=vad_segment",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=vad_segment", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -515,11 +358,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=vad_segment",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=vad_segment", "--package=sherpa-rs"]
       }
     },
     {
@@ -527,11 +366,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=vad_silero",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=vad_silero", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -540,11 +375,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=vad_silero",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=vad_silero", "--package=sherpa-rs"]
       }
     },
     {
@@ -552,11 +383,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=vad_ten",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=vad_ten", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -565,11 +392,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=vad_ten",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=vad_ten", "--package=sherpa-rs"]
       }
     },
     {
@@ -577,11 +400,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=vad_whisper",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=vad_whisper", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -590,11 +409,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=vad_whisper",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=vad_whisper", "--package=sherpa-rs"]
       }
     },
     {
@@ -602,11 +417,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=whisper",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=whisper", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -615,11 +426,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=whisper",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=whisper", "--package=sherpa-rs"]
       }
     },
     {
@@ -627,11 +434,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "run",
-          "--example=zipformer",
-          "--package=sherpa-rs"
-        ]
+        "args": ["run", "--example=zipformer", "--package=sherpa-rs"]
       },
       "args": []
     },
@@ -640,11 +443,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--example=zipformer",
-          "--package=sherpa-rs"
-        ]
+        "args": ["test", "--example=zipformer", "--package=sherpa-rs"]
       }
     },
     {
@@ -652,10 +451,7 @@
       "type": "lldb",
       "request": "launch",
       "cargo": {
-        "args": [
-          "test",
-          "--package=sherpa-rs-sys"
-        ]
+        "args": ["test", "--package=sherpa-rs-sys"]
       }
     }
   ]

@@ -56,7 +56,6 @@ impl VitsTts {
                 matcha: mem::zeroed::<_>(),
                 kokoro: mem::zeroed::<_>(),
                 kitten: mem::zeroed(),
-                zipvoice: mem::zeroed::<_>(),
             };
             let config = sherpa_rs_sys::SherpaOnnxOfflineTtsConfig {
                 max_num_sentences: config.tts_config.max_num_sentences,
