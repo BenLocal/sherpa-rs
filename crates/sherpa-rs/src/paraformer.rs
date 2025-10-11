@@ -117,11 +117,12 @@ impl ParaformerOnlineRecognizer {
             let result_ptr =
                 sherpa_rs_sys::SherpaOnnxGetOnlineStreamResult(self.recognizer, self.stream);
             let raw_result = result_ptr.read();
-            let result = ParaformerRecognizerResult::from(&raw_result);
+            let mut result = ParaformerRecognizerResult::from(&raw_result);
             sherpa_rs_sys::SherpaOnnxDestroyOnlineRecognizerResult(result_ptr);
 
             if sherpa_rs_sys::SherpaOnnxOnlineStreamIsEndpoint(self.recognizer, self.stream) == 1 {
                 sherpa_rs_sys::SherpaOnnxOnlineStreamReset(self.recognizer, self.stream);
+                result.is_final = true;
             }
 
             result

@@ -33,8 +33,8 @@ fn main() {
         let result = recognizer.transcribe(sample_rate, chunk);
         if !result.text.is_empty() {
             println!(
-                "✅ Text: {} | StartTime: {}",
-                result.text, result.start_time,
+                "✅ Text: {} | StartTime: {} | Final: {}",
+                result.text, result.start_time, result.is_final
             );
         }
     }
