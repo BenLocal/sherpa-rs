@@ -29,6 +29,13 @@ fn main() {
     let mut recognizer: ParaformerRecognizer =
         ParaformerRecognizer::new_online(config, encoder.into(), decoder.into()).unwrap();
 
+    let punctuate_config = sherpa_rs::punctuate::PunctuationConfig {
+        model: "sherpa-onnx-punct-ct-transformer-zh-en-vocab272727-2024-04-12/model.onnx".into(),
+        debug: true,
+        ..Default::default()
+    };
+    let mut punctuate = sherpa_rs::punctuate::Punctuation::new(punctuate_config).unwrap();
+
     for chunk in samples.chunks(1600) {
         let result = recognizer.transcribe(sample_rate, chunk);
         if !result.text.is_empty() {
@@ -36,6 +43,8 @@ fn main() {
                 "✅ Text: {} | StartTime: {} | Final: {}",
                 result.text, result.start_time, result.is_final
             );
+            let output = punctuate.add_punctuation(&result.text);
+            println!("📝 Punctuated: {}", output);
         }
     }
 }

@@ -17,6 +17,7 @@ sherpa-onnx-zipformer-*
 sherpa-onnx-moonshine-*
 sherpa-onnx-paraformer-*
 sherpa-onnx-streaming-*
+sherpa-onnx-sense-voice-*
 *.txt
 !checksum.txt
 sherpa-onnx-v*
