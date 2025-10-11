@@ -85,9 +85,6 @@ impl ParaformerOnlineRecognizer {
         recognizer_config.rule1_min_trailing_silence = 2.4;
         recognizer_config.rule2_min_trailing_silence = 1.2;
         recognizer_config.rule3_min_utterance_length = 300.0;
-        // let decoding_method = cstring_from_str("greedy_search");
-        // let decoding_method = std::ffi::CString::new("")?;
-        // recognizer_config.decoding_method = decoding_method.as_ptr();
 
         let recognizer =
             unsafe { sherpa_rs_sys::SherpaOnnxCreateOnlineRecognizer(&recognizer_config) };
@@ -95,7 +92,12 @@ impl ParaformerOnlineRecognizer {
             bail!("Failed to create online Paraformer recognizer");
         }
         let stream = unsafe { sherpa_rs_sys::SherpaOnnxCreateOnlineStream(recognizer) };
-
+        if stream.is_null() {
+            unsafe {
+                sherpa_rs_sys::SherpaOnnxDestroyOnlineRecognizer(recognizer);
+            }
+            bail!("Failed to create online Paraformer stream");
+        }
         Ok(Self { recognizer, stream })
     }
 
@@ -116,7 +118,6 @@ impl ParaformerOnlineRecognizer {
                 sherpa_rs_sys::SherpaOnnxGetOnlineStreamResult(self.recognizer, self.stream);
             let raw_result = result_ptr.read();
             let result = ParaformerRecognizerResult::from(&raw_result);
-
             sherpa_rs_sys::SherpaOnnxDestroyOnlineRecognizerResult(result_ptr);
 
             if sherpa_rs_sys::SherpaOnnxOnlineStreamIsEndpoint(self.recognizer, self.stream) == 1 {
