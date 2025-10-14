@@ -13,7 +13,6 @@ cargo run --example paraformer_streaming motivation.wav
 use sherpa_rs::{
     paraformer::{ParaformerConfig, ParaformerRecognizer},
     read_audio_file,
-    silero_vad::{SileroVad, SileroVadConfig},
 };
 
 fn main() {
