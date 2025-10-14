@@ -36,6 +36,7 @@ impl ParaformerRecognizer {
 pub struct ParaformerOnlineRecognizer {
     recognizer: *const sherpa_rs_sys::SherpaOnnxOnlineRecognizer,
     stream: *const sherpa_rs_sys::SherpaOnnxOnlineStream,
+    segment_id: i32,
 }
 
 impl ParaformerOnlineRecognizer {
@@ -98,7 +99,11 @@ impl ParaformerOnlineRecognizer {
             }
             bail!("Failed to create online Paraformer stream");
         }
-        Ok(Self { recognizer, stream })
+        Ok(Self {
+            recognizer,
+            stream,
+            segment_id: 0,
+        })
     }
 
     pub fn transcribe(&mut self, sample_rate: u32, samples: &[f32]) -> ParaformerRecognizerResult {
@@ -121,10 +126,12 @@ impl ParaformerOnlineRecognizer {
             sherpa_rs_sys::SherpaOnnxDestroyOnlineRecognizerResult(result_ptr);
 
             if sherpa_rs_sys::SherpaOnnxOnlineStreamIsEndpoint(self.recognizer, self.stream) == 1 {
+                self.segment_id += 1;
                 sherpa_rs_sys::SherpaOnnxOnlineStreamReset(self.recognizer, self.stream);
                 result.is_final = true;
             }
 
+            result.segment = self.segment_id;
             result
         }
     }

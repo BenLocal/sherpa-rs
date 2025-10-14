@@ -13,6 +13,7 @@ cargo run --example paraformer_streaming motivation.wav
 use sherpa_rs::{
     paraformer::{ParaformerConfig, ParaformerRecognizer},
     read_audio_file,
+    silero_vad::{SileroVad, SileroVadConfig},
 };
 
 fn main() {
@@ -41,14 +42,30 @@ fn main() {
     let mut punctuate = sherpa_rs::punctuate::Punctuation::new(punctuate_config).unwrap();
 
     for chunk in samples.chunks(1600) {
-        let result = recognizer.transcribe(sample_rate, chunk);
-        if !result.text.is_empty() {
-            println!(
-                "✅ Text: {} | StartTime: {} | Final: {}",
-                result.text, result.start_time, result.is_final
-            );
-            let output = punctuate.add_punctuation(&result.text);
-            println!("📝 Punctuated: {}", output);
+        let result = recognizer.transcribe(sample_rate, &chunk);
+        if result.text.is_empty() {
+            continue;
+        }
+
+        let mut output = punctuate.add_punctuation(&result.text);
+        // 对 partial 结果去掉末尾终止标点
+        if !result.is_final {
+            if let Some(last) = output.chars().last() {
+                if last == '.'
+                    || last == '。'
+                    || last == '！'
+                    || last == '？'
+                    || last == '!'
+                    || last == '?'
+                {
+                    output.pop();
+                }
+            }
+        }
+        if result.is_final {
+            println!("🎉 Final: {}", output);
+        } else {
+            println!("💬 Partial: {}", output);
         }
     }
 }
