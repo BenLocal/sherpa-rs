@@ -46,11 +46,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut vad = SileroVad::new(vad_config, 20.0)?;
 
     // Create SenseVoice recognizer
+    // use_itn: true enables punctuation (Inverse Text Normalization)
+    // SenseVoice model may also include emotion information in the text output
     let recognizer_config = SenseVoiceConfig {
         model: "./sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/model.int8.onnx".into(),
         tokens: "./sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/tokens.txt".into(),
         language: "auto".into(),
-        use_itn: false,
+        use_itn: true, // Enable punctuation
         num_threads: Some(2),
         ..Default::default()
     };
@@ -276,8 +278,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 recognizer.transcribe(target_sample_rate as u32, &segment.samples)
             };
 
-            // Display final result in default color
-            println!("\n✅ Final: {}", result.text);
+            // Display final result in default color with emotion if available
+            if !result.emotion.is_empty() {
+                println!("\n✅ Final: {} [情绪: {}]", result.text, result.emotion);
+            } else {
+                println!("\n✅ Final: {}", result.text);
+            }
 
             vad.pop();
             // Clear buffer after processing segment to avoid overlap with next segment

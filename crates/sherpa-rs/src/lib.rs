@@ -95,12 +95,14 @@ pub struct OfflineRecognizerResult {
     pub text: String,
     pub timestamps: Vec<f32>,
     pub tokens: Vec<String>,
+    pub emotion: String,
 }
 
 impl OfflineRecognizerResult {
     fn new(result: &sherpa_rs_sys::SherpaOnnxOfflineRecognizerResult) -> Self {
         let lang = unsafe { cstr_to_string(result.lang) };
         let text = unsafe { cstr_to_string(result.text) };
+        let emotion = unsafe { cstr_to_string(result.emotion) };
         let count = result.count.try_into().unwrap();
         let timestamps = if result.timestamps.is_null() {
             Vec::new()
@@ -122,6 +124,7 @@ impl OfflineRecognizerResult {
             text,
             timestamps,
             tokens,
+            emotion,
         }
     }
 }
