@@ -26,6 +26,9 @@ tracing = "0.1.40"
 
 [dev-dependencies]
 clap = { version = "4.5.8", features = ["derive"] }
+cpal = "0.15"
+ctrlc = "3.4"
+colored = "2.1"
 
 [features]
 default = ["download-binaries", "tts"]
@@ -139,3 +142,7 @@ path = "../../examples/dolphin.rs"
 [[example]]
 name = "parakeet"
 path = "../../examples/parakeet.rs"
+
+[[example]]
+name = "sense-voice-simulate-streaming"
+path = "../../examples/sense-voice-simulate-streaming.rs"
