@@ -299,7 +299,8 @@ fn main() {
     debug_log!("OUT_DIR: {}", out_dir.display());
 
     // Prepare sherpa-onnx source
-    if !sherpa_dst.exists() {
+    let has_sherpa_include_path = env::var("SHERPA_INCLUDE_PATH").is_ok();
+    if !has_sherpa_include_path && !sherpa_dst.exists() {
         debug_log!("Copy {} to {}", sherpa_src.display(), sherpa_dst.display());
         delete_folder(&sherpa_src.join("scripts")).unwrap();
         copy_folder(&sherpa_src, &sherpa_dst);
