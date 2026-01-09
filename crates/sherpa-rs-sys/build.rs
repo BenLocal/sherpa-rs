@@ -243,6 +243,7 @@ fn main() {
         "SHERPA_LIB_PROFILE",
         "BUILD_DEBUG",
         "UNSAFE_DISABLE_CHECKSUM_VALIDATION",
+        "SHERPA_INCLUDE_PATH",
     ]);
 
     let target_os = env::var("CARGO_CFG_TARGET_OS").unwrap();
@@ -318,8 +319,17 @@ fn main() {
         std::fs::copy("src/bindings.rs", out_dir.join("bindings.rs"))
             .expect("Failed to copy bindings.rs");
     } else {
+        let header_path = match env::var("SHERPA_INCLUDE_PATH") {
+            Ok(path) => Path::new(&path)
+                .join("c-api.h")
+                .to_str()
+                .unwrap()
+                .to_string(),
+            Err(_) => "wrapper.h".to_string(),
+        };
+
         let mut bindings_builder = bindgen::Builder::default()
-            .header("wrapper.h")
+            .header(&header_path)
             .clang_arg(format!("-I{}", sherpa_dst.display()))
             .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
             .derive_default(true);
